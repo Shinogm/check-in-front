@@ -74,7 +74,11 @@ export default function DashPage () {
             className='border text-card-foreground flex flex-col items-center justify-center gap-4 rounded-2xl bg-white p-6 shadow-lg dark:bg-gray-950'
             data-v0-t='card'
           >
-            <div className='flex h-20 w-20 items-center justify-center rounded-full bg-[#ff9b00] transition-all hover:scale-105 hover:bg-[#ffa500] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#ff9b00] dark:bg-[#ff9b00]/80 dark:hover:bg-[#ffa500]/80 dark:focus-visible:ring-[#ff9b00]/80'>
+            <a
+              onClick={() => {
+                push('/members/identify')
+              }} className='flex h-20 w-20 items-center justify-center rounded-full bg-[#ff9b00] transition-all hover:scale-105 hover:bg-[#ffa500] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#ff9b00] dark:bg-[#ff9b00]/80 dark:hover:bg-[#ffa500]/80 dark:focus-visible:ring-[#ff9b00]/80'
+            >
               <svg
                 xmlns='http://www.w3.org/2000/svg'
                 width='24'
@@ -89,7 +93,7 @@ export default function DashPage () {
               >
                 <path d='M22 12h-2.48a2 2 0 0 0-1.93 1.46l-2.35 8.36a.25.25 0 0 1-.48 0L9.24 2.18a.25.25 0 0 0-.48 0l-2.35 8.36A2 2 0 0 1 4.49 12H2' />
               </svg>
-            </div>
+            </a>
             <div className='text-center'>
               <h3 className='text-xl font-semibold text-[#ff9b00]'>Detect Member</h3>
               <p className='text-gray-500 dark:text-gray-400'>Detect member with finger</p>
