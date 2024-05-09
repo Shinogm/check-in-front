@@ -1,12 +1,28 @@
 'use client'
 import { motion } from 'framer-motion'
 import { useRouter } from 'next/navigation'
+import RegisterAdmin from '../API/register-api'
 
 export const RegisterForm = () => {
   const { push } = useRouter()
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
+
+    const form = new FormData(e.currentTarget)
+    console.log(form)
+    const token = Number(form.get('token'))
+    console.log(token)
+
+    try {
+      const response = await RegisterAdmin(form, token)
+      console.log(response)
+      push('/login')
+    } catch (error) {
+      console.error(error)
+    } finally {
+      console.log('finally')
+    }
   }
 
   return (
@@ -71,121 +87,135 @@ export const RegisterForm = () => {
                 </motion.div>
               </motion.div>
             </motion.div>
-            <div className='flex w-full flex-col items-center justify-center gap-4'>
-              <motion.div
-                className='grid w-full grid-cols-2 gap-4'
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 1, delay: 1.2 }}
-              >
-                <div className='space-y-2'>
-                  <label
-                    className='text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-gray-400'
-                    htmlFor='first-name'
-                  >
-                    First Name
-                  </label>
-                  <input
-                    className='flex h-10 w-full rounded-md border border-input px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 bg-[#1F2937] text-white'
-                    id='first-name'
-                    placeholder='Diego'
-                  />
-                </div>
-                <div className='space-y-2'>
-                  <label
-                    className='text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-gray-400'
-                    htmlFor='last-name'
-                  >
-                    Last Name
-                  </label>
-                  <input
-                    className='flex h-10 w-full rounded-md border border-input px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 bg-[#1F2937] text-white'
-                    id='last-name'
-                    placeholder='Gm'
-                  />
-                </div>
-              </motion.div>
-              <motion.div
-                className='space-y-2'
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 1, delay: 1.4 }}
-              >
-                <label
-                  className='text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-gray-400'
-                  htmlFor='email'
-                >
-                  Email
-                </label>
-                <input
-                  className='flex h-10 w-full rounded-md border border-input px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 bg-[#1F2937] text-white'
-                  id='email'
-                  placeholder='email@example.com'
-                  type='email'
-                />
-              </motion.div>
-              <motion.div
-                className='space-y-2'
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 1, delay: 1.6 }}
-              >
-                <label
-                  className='text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-gray-400'
-                  htmlFor='password'
-                >
-                  Password
-                </label>
-                <input
-                  className='flex h-10 w-full rounded-md border border-input px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 bg-[#1F2937] text-white'
-                  id='password'
-                  placeholder='********'
-                  type='password'
-                />
-              </motion.div>
-              <motion.div
-                className='space-y-2'
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 1, delay: 1.8 }}
-              >
-                <label
-                  className='text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-gray-400'
-                  htmlFor='token'
-                >
-                  Token
-                </label>
-                <input
-                  className='flex h-10 w-full rounded-md border border-input px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 bg-[#1F2937] text-white'
-                  id='token'
-                  type='number'
-                  placeholder='Enter your token'
-                />
-              </motion.div>
-            </div>
-            <motion.div
-              className='flex w-full flex-col items-center justify-center gap-4'
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 1, delay: 2 }}
+            <form
+              onSubmit={handleSubmit} className='
+              flex w-full flex-col items-center justify-center gap-4
+            '
             >
-              <button
-                onClick={() => push('/login')}
-                className='inline-flex items-center justify-center whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input h-10 px-4 py-2 w-full rounded-full bg-[#1F2937] text-[#F59E0B] hover:bg-[#F59E0B] hover:text-[#1F2937]'
+              <div className='flex w-full flex-col items-center justify-center gap-4'>
+                <motion.div
+                  className='grid w-full grid-cols-2 gap-4'
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 1, delay: 1.2 }}
+                >
+                  <div className='space-y-2'>
+                    <label
+                      className='text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-gray-400'
+                      htmlFor='first-name'
+                    >
+                      First Name
+                    </label>
+                    <input
+                      className='flex h-10 w-full rounded-md border border-input px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 bg-[#1F2937] text-white'
+                      id='first-name'
+                      placeholder='Diego'
+                      name='first_name'
+                    />
+                  </div>
+                  <div className='space-y-2'>
+                    <label
+                      className='text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-gray-400'
+                      htmlFor='last-name'
+                    >
+                      Last Name
+                    </label>
+                    <input
+                      className='flex h-10 w-full rounded-md border border-input px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 bg-[#1F2937] text-white'
+                      id='last-name'
+                      placeholder='Gm'
+                      name='last_name'
+                    />
+                  </div>
+                </motion.div>
+                <motion.div
+                  className='space-y-2'
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 1, delay: 1.4 }}
+                >
+                  <label
+                    className='text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-gray-400'
+                    htmlFor='email'
+                  >
+                    Email
+                  </label>
+                  <input
+                    className='flex h-10 w-full rounded-md border border-input px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 bg-[#1F2937] text-white'
+                    id='email'
+                    placeholder='email@example.com'
+                    type='email'
+                    name='email'
+                  />
+                </motion.div>
+                <motion.div
+                  className='space-y-2'
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 1, delay: 1.6 }}
+                >
+                  <label
+                    className='text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-gray-400'
+                    htmlFor='password'
+                  >
+                    Password
+                  </label>
+                  <input
+                    className='flex h-10 w-full rounded-md border border-input px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 bg-[#1F2937] text-white'
+                    id='password'
+                    placeholder='********'
+                    type='password'
+                    name='password'
+                  />
+                </motion.div>
+                <motion.div
+                  className='space-y-2'
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 1, delay: 1.8 }}
+                >
+                  <label
+                    className='text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-gray-400'
+                    htmlFor='token'
+                  >
+                    Token
+                  </label>
+                  <input
+                    className='flex h-10 w-full rounded-md border border-input px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 bg-[#1F2937] text-white'
+                    id='token'
+                    type='number'
+                    placeholder='Enter your token'
+                    name='token'
+                  />
+                </motion.div>
+              </div>
+              <motion.div
+                className='flex w-full flex-col items-center justify-center gap-4'
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 1, delay: 2 }}
               >
-                Return to Login
-              </button>
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className='inline-flex items-center justify-center whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary hover:bg-primary/90 h-10 px-4 py-2 w-full rounded-full bg-gradient-to-br from-[#F59E0B] to-[#EF4444] text-white hover:from-[#EF4444] hover:to-[#F59E0B]'
-              >
-                Register
-              </motion.button>
-            </motion.div>
+                <button
+                  onClick={() => push('/login')}
+                  className='inline-flex items-center justify-center whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input h-10 px-4 py-2 w-full rounded-full bg-[#1F2937] text-[#F59E0B] hover:bg-[#F59E0B] hover:text-[#1F2937]'
+                >
+                  Return to Login
+                </button>
+                <motion.button
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  className='inline-flex items-center justify-center whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary hover:bg-primary/90 h-10 px-4 py-2 w-full rounded-full bg-gradient-to-br from-[#F59E0B] to-[#EF4444] text-white hover:from-[#EF4444] hover:to-[#F59E0B]'
+                >
+                  Register
+                </motion.button>
+              </motion.div>
+            </form>
           </div>
+
         </div>
+
       </div>
+
     </section>
   )
 }
