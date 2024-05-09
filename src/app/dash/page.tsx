@@ -1,7 +1,14 @@
+'use client'
 import { DashBoard } from '@/components/dashboard'
+import { useRouter } from 'next/navigation'
 import React, { createContext } from 'react'
 
 export default function DashPage () {
+  const { push } = useRouter()
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+  }
   return (
     <DashBoard>
       <section>
@@ -10,7 +17,11 @@ export default function DashPage () {
             className='border text-card-foreground flex flex-col items-center justify-center gap-4 rounded-2xl bg-white p-6 shadow-lg dark:bg-gray-950'
             data-v0-t='card'
           >
-            <div className='flex h-20 w-20 items-center justify-center rounded-full bg-[#ff6b6b] transition-all hover:scale-105 hover:bg-[#ff7b7b] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#ff6b6b] dark:bg-[#ff6b6b]/80 dark:hover:bg-[#ff7b7b]/80 dark:focus-visible:ring-[#ff6b6b]/80'>
+            <div
+              onClick={() => (
+                console.log('clicked')
+              )} className='flex h-20 w-20 items-center justify-center rounded-full bg-[#ff6b6b] transition-all hover:scale-105 hover:bg-[#ff7b7b] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#ff6b6b] dark:bg-[#ff6b6b]/80 dark:hover:bg-[#ff7b7b]/80 dark:focus-visible:ring-[#ff6b6b]/80'
+            >
               <svg
                 xmlns='http://www.w3.org/2000/svg'
                 width='24'
@@ -29,7 +40,7 @@ export default function DashPage () {
             </div>
             <div className='text-center'>
               <h3 className='text-xl font-semibold text-[#ff6b6b]'>Membership</h3>
-              <p className='text-gray-500 dark:text-gray-400'>Explore our membership plans</p>
+              <p className='text-gray-500 dark:text-gray-400'>Create new member</p>
             </div>
           </div>
           <div
@@ -56,7 +67,7 @@ export default function DashPage () {
             </div>
             <div className='text-center'>
               <h3 className='text-xl font-semibold text-[#ffa500]'>API Docs</h3>
-              <p className='text-gray-500 dark:text-gray-400'>Integrate with our API</p>
+              <p className='text-gray-500 dark:text-gray-400'>localhost:3001</p>
             </div>
           </div>
           <div
@@ -80,43 +91,43 @@ export default function DashPage () {
               </svg>
             </div>
             <div className='text-center'>
-              <h3 className='text-xl font-semibold text-[#ff9b00]'>Workouts</h3>
-              <p className='text-gray-500 dark:text-gray-400'>Browse our workout plans</p>
-            </div>
-          </div>
-        </div>
-
-        <div className='grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3'>
-          <div
-            className='border text-card-foreground flex flex-col items-center justify-center gap-4 rounded-2xl bg-white p-6 shadow-lg dark:bg-gray-950'
-            data-v0-t='card'
-          >
-            <div className='flex h-20 w-20 items-center justify-center rounded-full bg-[#ff6b6b] transition-all hover:scale-105 hover:bg-[#ff7b7b] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#ff6b6b] dark:bg-[#ff6b6b]/80 dark:hover:bg-[#ff7b7b]/80 dark:focus-visible:ring-[#ff6b6b]/80'>
-              <svg
-                xmlns='http://www.w3.org/2000/svg'
-                width='24'
-                height='24'
-                viewBox='0 0 24 24'
-                fill='none'
-                stroke='currentColor'
-                stroke-width='2'
-                stroke-linecap='round'
-                stroke-linejoin='round'
-                className='h-10 w-10 text-white'
-              >
-                <path d='M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2' />
-                <circle cx='9' cy='7' r='4' />
-                <path d='M22 21v-2a4 4 0 0 0-3-3.87' />
-                <path d='M16 3.13a4 4 0 0 1 0 7.75' />
-              </svg>
-            </div>
-            <div className='text-center'>
-              <h3 className='text-xl font-semibold text-[#ff6b6b]'>Active Members</h3>
-              <p className='text-gray-500 dark:text-gray-400'>2,389 active members</p>
+              <h3 className='text-xl font-semibold text-[#ff9b00]'>Detect Member</h3>
+              <p className='text-gray-500 dark:text-gray-400'>Detect member with finger</p>
             </div>
           </div>
         </div>
       </section>
+      <div className='grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3'>
+        <div
+          className='border text-card-foreground flex flex-col items-center justify-center gap-4 rounded-2xl bg-white p-6 shadow-lg dark:bg-gray-950'
+          data-v0-t='card'
+        >
+          <div className='flex h-20 w-20 items-center justify-center rounded-full bg-[#ff6b6b] transition-all hover:scale-105 hover:bg-[#ff7b7b] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#ff6b6b] dark:bg-[#ff6b6b]/80 dark:hover:bg-[#ff7b7b]/80 dark:focus-visible:ring-[#ff6b6b]/80'>
+            <svg
+              xmlns='http://www.w3.org/2000/svg'
+              width='24'
+              height='24'
+              viewBox='0 0 24 24'
+              fill='none'
+              stroke='currentColor'
+              stroke-width='2'
+              stroke-linecap='round'
+              stroke-linejoin='round'
+              className='h-10 w-10 text-white'
+            >
+              <path d='M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2' />
+              <circle cx='9' cy='7' r='4' />
+              <path d='M22 21v-2a4 4 0 0 0-3-3.87' />
+              <path d='M16 3.13a4 4 0 0 1 0 7.75' />
+            </svg>
+          </div>
+          <div className='text-center'>
+            <h3 className='text-xl font-semibold text-[#ff6b6b]'>Active Members</h3>
+            <p className='text-gray-500 dark:text-gray-400'>1 active members</p>
+          </div>
+        </div>
+      </div>
+
     </DashBoard>
   )
 }
