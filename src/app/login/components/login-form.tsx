@@ -1,12 +1,32 @@
 'use client'
 import { motion } from 'framer-motion' // Import motion from Framer Motion
 import { useRouter } from 'next/navigation'
+import Login from '../API/login-api'
 
 export const LoginForm = () => {
   const { push } = useRouter()
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
+
+    const formData = new FormData(e.currentTarget)
+    const email = formData.get('email')
+    console.log('Email:', email)
+    const password = formData.get('password')
+    console.log('Password', password)
+
+    console.log('Form data:', formData)
+
+    try {
+      // Call the Login API
+      const response = await Login(formData)
+      console.log(response)
+      push('/dash')
+    } catch (error) {
+      console.error(error)
+    } finally {
+      console.log('Login request completed')
+    }
   }
 
   return (
@@ -102,6 +122,7 @@ export const LoginForm = () => {
                   id='email'
                   placeholder='Email'
                   type='email'
+                  name='email'
                   required
                 />
               </motion.div>
@@ -123,6 +144,7 @@ export const LoginForm = () => {
                   id='password'
                   placeholder='Password'
                   type='password'
+                  name='password'
                   required
                 />
               </motion.div>
