@@ -6,9 +6,6 @@ import React, { createContext } from 'react'
 export default function DashPage () {
   const { push } = useRouter()
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
-  }
   return (
     <DashBoard>
       <section>
