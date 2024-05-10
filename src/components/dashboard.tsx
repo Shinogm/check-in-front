@@ -152,7 +152,7 @@ export function DashBoard ({ children }: DashBoardProps): JSX.Element {
         className='flex flex-col'
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ duration: 0.5, delay: 2 }}
+        transition={{ duration: 0.5, delay: 1 }}
       >
         <header className='flex h-14 items-center gap-4 border-b bg-white px-6 shadow-sm dark:bg-gray-950 dark:border-gray-800'>
           <a className='lg:hidden' href='/a'>
@@ -169,7 +169,7 @@ export function DashBoard ({ children }: DashBoardProps): JSX.Element {
               className='h-6 w-6 text-[#ff6b6b]'
               initial={{ opacity: 0, scale: 0 }}
               animate={{ opacity: 1, scale: 1, rotate: 360 }}
-              transition={{ duration: 0.8, delay: 2.2 }}
+              transition={{ duration: 0.8, delay: 1.2 }}
             >
               <path d='M14.4 14.4 9.6 9.6' />
               <path d='M18.657 21.485a2 2 0 1 1-2.829-2.828l-1.767 1.768a2 2 0 1 1-2.829-2.829l6.364-6.364a2 2 0 1 1 2.829 2.829l-1.768 1.767a2 2 0 1 1 2.828 2.829z' />
@@ -185,7 +185,7 @@ export function DashBoard ({ children }: DashBoardProps): JSX.Element {
                 className='relative'
                 initial={{ opacity: 0, scale: 0 }}
                 animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.8, delay: 2.4 }}
+                transition={{ duration: 0.8 }}
               >
                 <svg
                   xmlns='http://www.w3.org/2000/svg'
@@ -211,14 +211,14 @@ export function DashBoard ({ children }: DashBoardProps): JSX.Element {
             data-state='closed'
             initial={{ opacity: 0, scale: 0 }}
             animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.8, delay: 2.6 }}
+            transition={{ duration: 0.8 }}
           />
         </header>
         <motion.main
           className='flex flex-1 flex-col gap-4 p-4 md:gap-8 md:p-6'
-          initial={{ opacity: 0 }}
+          initial={{ opacity: 0.5 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 0.5, delay: 1 }}
+          transition={{ duration: 0.2 }}
         >
           {children}
         </motion.main>

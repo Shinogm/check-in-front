@@ -23,6 +23,7 @@ export default async function IdentifyClientMembershipFinger () {
   const response = await fetch(`${APIENDPOINTS.getMembershipIsOutFingerPoint}`, {
     method: 'GET'
   })
+
   console.log(response)
 
   console.log(response)

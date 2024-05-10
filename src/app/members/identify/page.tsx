@@ -12,7 +12,6 @@ export default function IdentifyForm () {
 
   useEffect(() => {
     if (res != null) {
-      // Trigger animation when response is received
       (async () => {
         await animationControls.start({
           opacity: 1,
@@ -188,7 +187,7 @@ export default function IdentifyForm () {
                       Edit
                     </button>
                     <button className='inline-flex items-center justify-center whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background h-9 rounded-md px-3 text-red-500 hover:bg-red-500 hover:text-white'>
-                      Delete
+                      Cancel
                     </button>
                   </div>
                 </div>

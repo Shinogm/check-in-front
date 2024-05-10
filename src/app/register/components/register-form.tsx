@@ -2,8 +2,11 @@
 import { motion } from 'framer-motion'
 import { useRouter } from 'next/navigation'
 import RegisterAdmin from '../API/register-api'
+import { LabeledInput } from './interface/label-input'
 
 export const RegisterForm = () => {
+  const currentPath = new URL(window.location.href).pathname
+  console.log(currentPath)
   const { push } = useRouter()
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -100,31 +103,25 @@ export const RegisterForm = () => {
                   transition={{ duration: 1, delay: 1.2 }}
                 >
                   <div className='space-y-2'>
-                    <label
-                      className='text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-gray-400'
-                      htmlFor='first-name'
-                    >
-                      First Name
-                    </label>
-                    <input
-                      className='flex h-10 w-full rounded-md border border-input px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 bg-[#1F2937] text-white'
+                    <LabeledInput
+                      label='First Name'
                       id='first-name'
-                      placeholder='Diego'
+                      placeholder='Juan'
+                      type='text'
+                      required
                       name='first_name'
+                      capitalize
                     />
                   </div>
                   <div className='space-y-2'>
-                    <label
-                      className='text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-gray-400'
-                      htmlFor='last-name'
-                    >
-                      Last Name
-                    </label>
-                    <input
-                      className='flex h-10 w-full rounded-md border border-input px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 bg-[#1F2937] text-white'
+                    <LabeledInput
+                      label='Last Name'
                       id='last-name'
-                      placeholder='Gm'
+                      placeholder='Perez Garcia'
+                      type='text'
+                      required
                       name='last_name'
+                      capitalize
                     />
                   </div>
                 </motion.div>
@@ -134,19 +131,16 @@ export const RegisterForm = () => {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 1, delay: 1.4 }}
                 >
-                  <label
-                    className='text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-gray-400'
-                    htmlFor='email'
-                  >
-                    Email
-                  </label>
-                  <input
-                    className='flex h-10 w-full rounded-md border border-input px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 bg-[#1F2937] text-white'
+                  <LabeledInput
+                    label='Email'
                     id='email'
-                    placeholder='email@example.com'
                     type='email'
+                    placeholder='email@example.com'
+                    required
                     name='email'
+                    capitalize
                   />
+
                 </motion.div>
                 <motion.div
                   className='space-y-2'
@@ -154,18 +148,14 @@ export const RegisterForm = () => {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 1, delay: 1.6 }}
                 >
-                  <label
-                    className='text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-gray-400'
-                    htmlFor='password'
-                  >
-                    Password
-                  </label>
-                  <input
-                    className='flex h-10 w-full rounded-md border border-input px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 bg-[#1F2937] text-white'
+                  <LabeledInput
+                    label='Password'
                     id='password'
-                    placeholder='********'
                     type='password'
+                    placeholder='********'
+                    required
                     name='password'
+                    capitalize
                   />
                 </motion.div>
                 <motion.div
@@ -174,19 +164,16 @@ export const RegisterForm = () => {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 1, delay: 1.8 }}
                 >
-                  <label
-                    className='text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-gray-400'
-                    htmlFor='token'
-                  >
-                    Token
-                  </label>
-                  <input
-                    className='flex h-10 w-full rounded-md border border-input px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 bg-[#1F2937] text-white'
-                    id='token'
-                    type='number'
-                    placeholder='Enter your token'
-                    name='token'
-                  />
+                  {currentPath === '/register' && (
+                    <LabeledInput
+                      label='Token'
+                      id='token'
+                      type='number'
+                      placeholder='Ingrese el token'
+                      required
+                      name='token'
+                    />
+                  )}
                 </motion.div>
               </div>
               <motion.div
@@ -195,16 +182,20 @@ export const RegisterForm = () => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 1, delay: 2 }}
               >
-                <button
-                  onClick={() => push('/login')}
-                  className='inline-flex items-center justify-center whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input h-10 px-4 py-2 w-full rounded-full bg-[#1F2937] text-[#F59E0B] hover:bg-[#F59E0B] hover:text-[#1F2937]'
-                >
-                  Return to Login
-                </button>
+                {currentPath === '/register' && (
+                  <button
+                    onClick={() => push('/login')}
+                    className='inline-flex items-center justify-center whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input h-10 px-4 py-2 w-full rounded-full bg-[#1F2937] text-[#F59E0B] hover:bg-[#F59E0B] hover:text-[#1F2937]'
+                    type='button'
+                  >
+                    Return to Login
+                  </button>
+                )}
                 <motion.button
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                   className='inline-flex items-center justify-center whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary hover:bg-primary/90 h-10 px-4 py-2 w-full rounded-full bg-gradient-to-br from-[#F59E0B] to-[#EF4444] text-white hover:from-[#EF4444] hover:to-[#F59E0B]'
+                  type='submit'
                 >
                   Register
                 </motion.button>
