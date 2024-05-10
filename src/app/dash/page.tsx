@@ -1,6 +1,7 @@
 'use client'
 import { DashBoard } from '@/components/dashboard'
 import { useRouter } from 'next/navigation'
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import React, { createContext } from 'react'
 
 export default function DashPage () {
