@@ -3,10 +3,14 @@ import { motion } from 'framer-motion'
 import { useRouter } from 'next/navigation'
 import RegisterAdmin from '../API/register-api'
 import { LabeledInput } from './interface/label-input'
+import { emitKeypressEvents } from 'readline'
 
 export const RegisterForm = () => {
-  const currentPath = new URL(window.location.href).pathname
-  console.log(currentPath)
+  const currentParams = new URL(window.location.href).searchParams.toString()
+  const { pathname } = new URL(window.location.href)
+  console.log(pathname)
+  console.log(currentParams)
+
   const { push } = useRouter()
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -16,16 +20,31 @@ export const RegisterForm = () => {
     console.log(form)
     const token = Number(form.get('token'))
     console.log(token)
-
-    try {
-      const response = await RegisterAdmin(form, token)
-      console.log(response)
-      push('/login')
-    } catch (error) {
-      console.error(error)
-    } finally {
-      console.log('finally')
+    const email = form.get('email')
+    console.log(email)
+    if (pathname === '/register') {
+      try {
+        const response = await RegisterAdmin(form, token)
+        console.log(response)
+        push('/login')
+      } catch (error) {
+        console.error(error)
+      } finally {
+        console.log('finally')
+      }
     }
+    if (pathname === '/members/register-member') {
+      console.log('members')
+    }
+  }
+
+  const handleSubmitMember = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+
+    const form = new FormData(e.currentTarget)
+    console.log(form)
+    const token = Number(form.get('token'))
+    console.log(token)
   }
 
   return (
@@ -142,39 +161,42 @@ export const RegisterForm = () => {
                   />
 
                 </motion.div>
-                <motion.div
-                  className='space-y-2'
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 1, delay: 1.6 }}
-                >
-                  <LabeledInput
-                    label='Password'
-                    id='password'
-                    type='password'
-                    placeholder='********'
-                    required
-                    name='password'
-                    capitalize
-                  />
-                </motion.div>
-                <motion.div
-                  className='space-y-2'
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 1, delay: 1.8 }}
-                >
-                  {currentPath === '/register' && (
-                    <LabeledInput
-                      label='Token'
-                      id='token'
-                      type='number'
-                      placeholder='Ingrese el token'
-                      required
-                      name='token'
-                    />
-                  )}
-                </motion.div>
+                {pathname === '/register' && (
+                  <>
+                    <motion.div
+                      className='space-y-2'
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 1, delay: 1.6 }}
+                    >
+                      <LabeledInput
+                        label='Password'
+                        id='password'
+                        type='password'
+                        placeholder='********'
+                        required
+                        name='password'
+                        capitalize
+                      />
+                    </motion.div>
+                    <motion.div
+                      className='space-y-2'
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 1, delay: 1.8 }}
+                    >
+
+                      <LabeledInput
+                        label='Token'
+                        id='token'
+                        type='number'
+                        placeholder='Ingrese el token'
+                        required
+                        name='token'
+                      />
+                    </motion.div>
+                  </>
+                )}
               </div>
               <motion.div
                 className='flex w-full flex-col items-center justify-center gap-4'
@@ -182,7 +204,7 @@ export const RegisterForm = () => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 1, delay: 2 }}
               >
-                {currentPath === '/register' && (
+                {pathname === '/register' && (
                   <button
                     onClick={() => push('/login')}
                     className='inline-flex items-center justify-center whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input h-10 px-4 py-2 w-full rounded-full bg-[#1F2937] text-[#F59E0B] hover:bg-[#F59E0B] hover:text-[#1F2937]'
