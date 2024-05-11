@@ -1,6 +1,8 @@
 'use client'
 import { motion } from 'framer-motion' // Import motion from Framer Motion
 import { useRouter } from 'next/navigation'
+import { Toaster, toast } from 'sonner'
+import React from 'react'
 import Login from '../API/login-api'
 
 export const LoginForm = () => {
@@ -18,14 +20,21 @@ export const LoginForm = () => {
     console.log('Form data:', formData)
 
     try {
-      // Call the Login API
       const response = await Login(formData)
-      console.log(response)
-      push('/dash')
+      console.log('Response:', response)
+
+      if (response.message === 'Password correct') {
+        push('/dash')
+      }
     } catch (error) {
-      console.error(error)
-    } finally {
-      console.log('Login request completed')
+      console.error('Error:', error)
+      console.log('Error:', error)
+      toast.error('Email or password incorrect',
+        {
+          duration: 5000,
+          position: 'bottom-left',
+          style: { backgroundColor: '#e06c75', borderRadius: '10px', border: '2px solid #FFF', boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)' }
+        })
     }
   }
 
@@ -156,6 +165,7 @@ export const LoginForm = () => {
                 transition={{ duration: 0.5, delay: 1 }}
               >
                 <div className='flex items-center justify-between'>
+                  <Toaster />
                   <button
                     className='inline-flex items-center justify-center whitespace-nowrap text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary hover:bg-primary/90 h-10 w-full rounded-full bg-gradient-to-r from-orange-400 to-red-500 px-4 py-3 font-bold text-white transition-colors hover:from-orange-500 hover:to-red-600 focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 dark:focus:ring-offset-gray-900'
                     type='submit'

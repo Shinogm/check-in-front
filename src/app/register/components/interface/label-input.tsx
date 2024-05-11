@@ -15,7 +15,7 @@ const className = {
 }
 
 export const LabeledInput = ({ label, id, placeholder, type, required = false, name, capitalize = false }: Props) => (
-  <>
+  <section>
     <label
       className='text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-gray-400'
       htmlFor='first-name'
@@ -32,5 +32,5 @@ export const LabeledInput = ({ label, id, placeholder, type, required = false, n
       type={type}
       required={required}
     />
-  </>
+  </section>
 )

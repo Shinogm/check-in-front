@@ -1,17 +1,21 @@
 'use client'
 import { motion } from 'framer-motion'
-import { useRouter } from 'next/navigation'
+import { useRouter, usePathname } from 'next/navigation'
 import RegisterAdmin from '../API/register-api'
 import { LabeledInput } from './interface/label-input'
-import { emitKeypressEvents } from 'readline'
+import { Toaster, toast } from 'sonner'
+import { registerClientAPI } from '@/app/members/register-member/API/register-client-api'
+import { currentParams } from '../server/url-global '
+import { use, useState } from 'react'
+import ClientFinger from '../API/create-finger'
+import { set } from 'zod'
 
 export const RegisterForm = () => {
-  const currentParams = new URL(window.location.href).searchParams.toString()
-  const { pathname } = new URL(window.location.href)
+  const pathname = usePathname()
   console.log(pathname)
-  console.log(currentParams)
-
   const { push } = useRouter()
+  const [loading, setLoading] = useState(false)
+  console.log(loading, setLoading)
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -24,27 +28,121 @@ export const RegisterForm = () => {
     console.log(email)
     if (pathname === '/register') {
       try {
-        const response = await RegisterAdmin(form, token)
-        console.log(response)
+        const data = await RegisterAdmin(form, token)
+        console.log(data)
+        toast.success('User registered successfully')
         push('/login')
       } catch (error) {
-        console.error(error)
-      } finally {
-        console.log('finally')
+        (token !== 1234)
+
+          ? toast.error('Token is incorrect contact your administrator.',
+            {
+              duration: 5000,
+              position: 'bottom-left',
+              style: { backgroundColor: '#e06c75', borderRadius: '10px', border: '2px solid #FFF', boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)' }
+            })
+          : toast.error('User already exists', {
+            duration: 5000,
+            position: 'bottom-left',
+            style: {
+              backgroundColor: '#e06c75',
+              color: '#fff',
+              borderRadius: '8px',
+              padding: '12px',
+              boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.1)'
+            }
+          })
+      }
+    } if (pathname !== '/register') {
+      try {
+        const dataClient = await registerClientAPI(form)
+
+        console.log(dataClient)
+        setLoading(true)
+
+        toast.success('Client registered successfully, registering finger', {
+          duration: 5000,
+          position: 'bottom-right',
+          style: {
+            backgroundColor: '#22C55E',
+            color: '#fff',
+            borderRadius: '8px',
+            padding: '12px',
+            boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.1)'
+          }
+        }
+        )
+        if (dataClient.status !== 'success') {
+          toast.error('User already exists', {
+            duration: 5000,
+            position: 'bottom-left',
+            style: {
+              backgroundColor: '#e06c75',
+              color: '#fff',
+              borderRadius: '8px',
+              padding: '12px',
+              boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.1)'
+            }
+          }
+          )
+        }
+        if (loading || dataClient.status === 'success') {
+          try {
+            toast.loading('Registering finger', {
+              duration: 5000,
+              position: 'bottom-left',
+              style: {
+                backgroundColor: '#F59E0B',
+                color: '#fff',
+                borderRadius: '8px',
+                padding: '12px',
+                boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.1)'
+              },
+              action: {
+                label: 'Cancel',
+                onClick: () => toast.dismiss()
+              }
+            })
+            const dataFinger = await ClientFinger(dataClient.id)
+            console.log(dataFinger)
+
+            if (dataFinger.status === 'success') {
+              toast.success('Finger registered successfully', {
+                duration: 5000,
+                position: 'bottom-left',
+                style: {
+                  backgroundColor: '#22C55E',
+                  color: '#fff',
+                  borderRadius: '8px',
+                  padding: '12px',
+                  boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.1)'
+                }
+              })
+            }
+          } catch (error) {
+            toast.error('Error al registrar huella', { duration: 5000, position: 'bottom-left', style: { backgroundColor: '#e06c75', color: '#fff', borderRadius: '8px', padding: '12px', boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.1)' } })
+            toast.dismiss()
+            setLoading(false)
+          } finally {
+            setLoading(false)
+            toast.dismiss()
+          }
+        }
+        console.log(dataClient.user.email)
+      } catch (error) {
+        toast.error('Email already exists', {
+          duration: 5000,
+          position: 'bottom-left',
+          style: {
+            backgroundColor: '#e06c75',
+            color: '#fff',
+            borderRadius: '8px',
+            padding: '12px',
+            boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.1)'
+          }
+        })
       }
     }
-    if (pathname === '/members/register-member') {
-      console.log('members')
-    }
-  }
-
-  const handleSubmitMember = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
-
-    const form = new FormData(e.currentTarget)
-    console.log(form)
-    const token = Number(form.get('token'))
-    console.log(token)
   }
 
   return (
@@ -206,13 +304,17 @@ export const RegisterForm = () => {
               >
                 {pathname === '/register' && (
                   <button
-                    onClick={() => push('/login')}
+                    onClick={() => {
+                      push('/login')
+                    }}
                     className='inline-flex items-center justify-center whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input h-10 px-4 py-2 w-full rounded-full bg-[#1F2937] text-[#F59E0B] hover:bg-[#F59E0B] hover:text-[#1F2937]'
                     type='button'
                   >
                     Return to Login
                   </button>
                 )}
+
+                <Toaster />
                 <motion.button
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}

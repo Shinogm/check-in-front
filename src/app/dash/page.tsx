@@ -1,11 +1,30 @@
 'use client'
 import { DashBoard } from '@/components/dashboard'
-import { useRouter } from 'next/navigation'
+import { redirect, useRouter } from 'next/navigation'
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import React, { createContext } from 'react'
+import { getMembers } from './API/get'
 
 export default function DashPage () {
   const { push } = useRouter()
+  const [membersLength, setMembersLength] = React.useState<number>(0)
+
+  React.useEffect(() => {
+    getMembers()
+      .then(({ parsedData, length }) => {
+        console.log('Data:', parsedData)
+        console.log('Length:', length)
+        setMembersLength(length)
+      })
+      .catch((error) => {
+        console.error('Error:', error)
+      })
+      .finally(() => {
+        // Do something after the promise is resolved or rejected
+      })
+  }, [])
+
+  // Use membersLength in your component
 
   return (
     <DashBoard>
@@ -17,7 +36,7 @@ export default function DashPage () {
           >
             <div
               onClick={() => (
-                console.log('clicked')
+                push('/members/register-member')
               )} className='flex h-20 w-20 items-center justify-center rounded-full bg-[#ff6b6b] transition-all hover:scale-105 hover:bg-[#ff7b7b] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#ff6b6b] dark:bg-[#ff6b6b]/80 dark:hover:bg-[#ff7b7b]/80 dark:focus-visible:ring-[#ff6b6b]/80'
             >
               <svg
@@ -45,7 +64,12 @@ export default function DashPage () {
             className='border text-card-foreground flex flex-col items-center justify-center gap-4 rounded-2xl bg-white p-6 shadow-lg dark:bg-gray-950'
             data-v0-t='card'
           >
-            <div className='flex h-20 w-20 items-center justify-center rounded-full bg-[#ffa500] transition-all hover:scale-105 hover:bg-[#ffb500] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#ffa500] dark:bg-[#ffa500]/80 dark:hover:bg-[#ffb500]/80 dark:focus-visible:ring-[#ffa500]/80'>
+            <a
+              onClick={() => {
+                console.log('Redirigiendo a localhost:3001/docs')
+                window.location.href = 'http://localhost:3001/docs'
+              }} className='flex h-20 w-20 items-center justify-center rounded-full bg-[#ffa500] transition-all hover:scale-105 hover:bg-[#ffb500] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#ffa500] dark:bg-[#ffa500]/80 dark:hover:bg-[#ffb500]/80 dark:focus-visible:ring-[#ffa500]/80'
+            >
               <svg
                 xmlns='http://www.w3.org/2000/svg'
                 width='24'
@@ -62,7 +86,7 @@ export default function DashPage () {
                 <path d='m21 2-9.6 9.6' />
                 <path d='m15.5 7.5 3 3L22 7l-3-3' />
               </svg>
-            </div>
+            </a>
             <div className='text-center'>
               <h3 className='text-xl font-semibold text-[#ffa500]'>API Docs</h3>
               <p className='text-gray-500 dark:text-gray-400'>localhost:3001</p>
@@ -104,7 +128,11 @@ export default function DashPage () {
           className='border text-card-foreground flex flex-col items-center justify-center gap-4 rounded-2xl bg-white p-6 shadow-lg dark:bg-gray-950'
           data-v0-t='card'
         >
-          <div className='flex h-20 w-20 items-center justify-center rounded-full bg-[#ff6b6b] transition-all hover:scale-105 hover:bg-[#ff7b7b] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#ff6b6b] dark:bg-[#ff6b6b]/80 dark:hover:bg-[#ff7b7b]/80 dark:focus-visible:ring-[#ff6b6b]/80'>
+          <a
+            onClick={() => {
+              push('/members/all-memberships')
+            }} className='flex h-20 w-20 items-center justify-center rounded-full bg-[#ff6b6b] transition-all hover:scale-105 hover:bg-[#ff7b7b] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#ff6b6b] dark:bg-[#ff6b6b]/80 dark:hover:bg-[#ff7b7b]/80 dark:focus-visible:ring-[#ff6b6b]/80'
+          >
             <svg
               xmlns='http://www.w3.org/2000/svg'
               width='24'
@@ -122,10 +150,10 @@ export default function DashPage () {
               <path d='M22 21v-2a4 4 0 0 0-3-3.87' />
               <path d='M16 3.13a4 4 0 0 1 0 7.75' />
             </svg>
-          </div>
+          </a>
           <div className='text-center'>
             <h3 className='text-xl font-semibold text-[#ff6b6b]'>Active Members</h3>
-            <p className='text-gray-500 dark:text-gray-400'>1 active members</p>
+            <p className='text-gray-500 dark:text-gray-400'>{membersLength} active members</p>
           </div>
         </div>
       </div>
