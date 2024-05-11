@@ -1,9 +1,11 @@
+import { DashBoard } from '@/components/dashboard'
 import React from 'react'
+import { AllClients } from './components/all-memberships-form'
 
 export default function AllMemberships () {
   return (
-    <div>
-      <h1>All Memberships</h1>
-    </div>
+    <DashBoard>
+      <AllClients />
+    </DashBoard>
   )
 }
