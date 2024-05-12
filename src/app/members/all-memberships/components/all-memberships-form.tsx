@@ -1,9 +1,9 @@
 'use server'
 import React from 'react'
 import { ScompoenentClient } from './client-interface-1'
-import { getMembersSchema2, getMembersTest } from '../API/get-all-members'
+import { getMembersTest } from '../API/get-all-members'
 import { revalidatePath } from 'next/cache'
-import { GetNoMembersType, NoClientType, getNoMembersTest } from '../API/get-no-members'
+import { NoClientType, getNoMembersTest } from '../API/get-no-members'
 
 export default async function ClientsAllC () {
   revalidatePath('/members/all-memberships')
