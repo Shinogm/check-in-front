@@ -260,7 +260,7 @@ export const ScompoenentClient = ({ name, key, id, lastName, email, membershipId
           </div>
         </div>
         <div className='text-center'>
-          <h3 className='text-xl font-bold text-gray-800 mb-2'>ID: {id} Nombre: {name} {lastName}</h3>
+          <h3 className='text-xl font-bold text-gray-800 mb-2'>ClienteID: {id} Nombre: {name} {lastName}</h3>
           <p className='text-gray-600 mb-2'>{email}</p>
           <p className='text-gray-600 mb-2'>Membership ID: {membershipId}</p>
           <p className='text-gray-600 mb-2'>Expiration: {expiration}</p>

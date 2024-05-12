@@ -16,6 +16,18 @@ export const getNoMembersSchema = z.object({
   )
 })
 
+export const ClientType = z.object({
+  id: z.number(),
+  first_name: z.string(),
+  last_name: z.string(),
+  email: z.string(),
+  password: z.nullable(z.unknown()),
+  created_at: z.string(),
+  perms: z.string()
+})
+
+export type NoClientType = z.infer<typeof ClientType>
+
 export const getNoMembersTest = async () => {
   const response = await fetch('http://localhost:3001/membership/get-clients-no-membership')
 

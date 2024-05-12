@@ -86,20 +86,7 @@ export default function ModifyPage () {
               type='email'
             />
           </div>
-          <div className='space-y-2'>
-            <label
-              className='text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70'
-              htmlFor='telephone'
-            >
-              Telephone
-            </label>
-            <input
-              className='flex h-10 w-full rounded-md border border-input px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-htmlForeground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 bg-[#f2f2f2] focus:border-[#0077b6] focus:ring-[#0077b6]'
-              id='telephone'
-              placeholder='+1 (555) 123-4567'
-              type='tel'
-            />
-          </div>
+
           <div className='space-y-2'>
             <label
               className='text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70'

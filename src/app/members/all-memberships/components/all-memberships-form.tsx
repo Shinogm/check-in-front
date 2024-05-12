@@ -3,7 +3,7 @@ import React from 'react'
 import { ScompoenentClient } from './client-interface-1'
 import { getMembersSchema2, getMembersTest } from '../API/get-all-members'
 import { revalidatePath } from 'next/cache'
-import { getNoMembersTest } from '../API/get-no-members'
+import { GetNoMembersType, NoClientType, getNoMembersTest } from '../API/get-no-members'
 
 export default async function ClientsAllC () {
   revalidatePath('/members/all-memberships')
@@ -27,6 +27,7 @@ export default async function ClientsAllC () {
                 <>
                   <ScompoenentClient
                     key={member.membership.id ?? 0}
+                    id={member.client_info[0].id ?? 0}
                     lastName={member.client_info[0].last_name ?? 'No hay apellido'}
                     name={member.client_info[0].first_name ?? 'No hay nombre'}
                     email={member.client_info[0].email ?? 'No hay email'}
@@ -56,16 +57,16 @@ export default async function ClientsAllC () {
               <div className='mb-8 md:mb-10 lg:mb-12 gap-4'>
                 <section className='grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4' />
 
-                {getNoMembersData.clients.map((clients: any) => (
+                {getNoMembersData.clients.map((client: NoClientType) => (
                   // eslint-disable-next-line react/jsx-key
                   <>
 
                     <ScompoenentClient
-                      key={clients.id}
-                      id={clients.id}
-                      lastName={clients.last_name}
-                      name={clients.first_name}
-                      email={clients.email}
+                      key={client.id ?? 0}
+                      id={client.id ?? 0}
+                      lastName={client.last_name ?? 'No hay apellido'}
+                      name={client.first_name ?? 'No hay nombre'}
+                      email={client.email ?? 'No hay email'}
                       membershipId={0}
                       expiration='No hay fecha de expiracion'
                       created='No hay fecha de creacion'
