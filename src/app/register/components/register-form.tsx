@@ -5,10 +5,8 @@ import RegisterAdmin from '../API/register-api'
 import { LabeledInput } from './interface/label-input'
 import { Toaster, toast } from 'sonner'
 import { registerClientAPI } from '@/app/members/register-member/API/register-client-api'
-import { currentParams } from '../server/url-global '
-import { use, useState } from 'react'
+import { useState } from 'react'
 import ClientFinger from '../API/create-finger'
-import { set } from 'zod'
 
 export const RegisterForm = () => {
   const pathname = usePathname()
@@ -255,7 +253,6 @@ export const RegisterForm = () => {
                     placeholder='email@example.com'
                     required
                     name='email'
-                    capitalize
                   />
 
                 </motion.div>
@@ -287,7 +284,7 @@ export const RegisterForm = () => {
                       <LabeledInput
                         label='Token'
                         id='token'
-                        type='number'
+                        type='password'
                         placeholder='Ingrese el token'
                         required
                         name='token'
