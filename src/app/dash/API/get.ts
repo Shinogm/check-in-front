@@ -20,9 +20,7 @@ export const getMembersSchema = z.object({
 export type GetMembers = z.infer<typeof getMembersSchema>
 
 export const getMembers = async () => {
-  const response = await fetch(APIENDPOINTS.getGetMembershipsPoint('yes'), {
-    method: 'GET'
-  })
+  const response = await fetch('http://localhost:3001/membership/get-members/yes')
 
   if (!response.ok) {
     throw new Error('Failed to get members')

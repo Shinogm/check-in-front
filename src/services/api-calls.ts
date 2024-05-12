@@ -28,6 +28,7 @@ export const APIENDPOINTS = {
   getCheckMembershipIsOutPoint: `${API_URL}/membership/check-all-membership`,
   getMembershipIsOutFingerPoint: `${API_URL}/membership/finger/check-membership`,
   deleteCancelMembershipPoint: (membershipID: number) => `${API_URL}/membership/cancel/${membershipID}`,
+  deleteCancelMembershipCodePoint: (code: number) => `${API_URL}/membership/cancel/code/${code}`,
 
   // Permissions
   getGetPermsAllPoint: `${API_URL}/perms/get-permissions`,

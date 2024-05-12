@@ -1,29 +1,23 @@
 'use client'
 import { DashBoard } from '@/components/dashboard'
-import { redirect, useRouter } from 'next/navigation'
+import { useRouter } from 'next/navigation'
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import React, { createContext } from 'react'
-import { getMembers } from './API/get'
+import { GetMembers2, getMembersTest } from '../members/all-memberships/API/get-all-members'
 
 export default function DashPage () {
   const { push } = useRouter()
-  const [membersLength, setMembersLength] = React.useState<number>(0)
+  const [membersLength, setMembersLength] = React.useState<GetMembers2>()
 
   React.useEffect(() => {
-    getMembers()
-      .then(({ parsedData, length }) => {
-        console.log('Data:', parsedData)
-        console.log('Length:', length)
-        setMembersLength(length)
-      })
-      .catch((error) => {
-        console.error('Error:', error)
-      })
-      .finally(() => {
-        // Do something after the promise is resolved or rejected
-      })
+    // GET THE MEMBERS LENGTH
+    const getMembersData = getMembersTest().then((data) => {
+      setMembersLength(data?.length)
+    })
+    console.log('Members:', getMembersData)
   }, [])
 
+  console.log('Members:', membersLength)
   // Use membersLength in your component
 
   return (
