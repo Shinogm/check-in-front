@@ -159,16 +159,16 @@ export const ModifyForm = () => {
                         duration: 5000,
                         position: 'bottom-left',
                         style: {
-                          backgroundColor: '#F59E0B',
+                          backgroundColor: '#00b140',
                           color: '#fff',
                           borderRadius: '8px',
                           padding: '12px',
                           boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.1)'
                         },
                         action: {
-                          label: 'return to all members',
+                          label: 'return to principal page',
                           onClick: () => {
-                            Push.push('/members/all-memberships')
+                            Push.push('/dash')
                           }
                         }
                       })
