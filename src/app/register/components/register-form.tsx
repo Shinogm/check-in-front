@@ -194,7 +194,7 @@ export const RegisterForm = () => {
                     strokeWidth='2'
                     strokeLinecap='round'
                     strokeLinejoin='round'
-                    className='h-8 w-8 text-white '
+                    className='h-8 w-8 text-white relative animate-pulse'
                   >
                     <path d='M14.4 14.4 9.6 9.6' />
                     <path d='M18.657 21.485a2 2 0 1 1-2.829-2.828l-1.767 1.768a2 2 0 1 1-2.829-2.829l6.364-6.364a2 2 0 1 1 2.829 2.829l-1.768 1.767a2 2 0 1 1 2.828 2.829z' />
