@@ -93,7 +93,7 @@ export const ScompoenentClient = ({ name, key, id, lastName, email, membershipId
             )}
             <button
               onClick={() => {
-                push('/members/edit-member')
+                push(`/members/modify?email=${email}&clientid=${id?.toString() ?? 0}&name=${name}&last-name=${lastName}&memberis=${membershipId}&expiration=${expiration}&created=${created}`)
               }} className='inline-flex items-center justify-center whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-accent h-10 w-10 rounded-full text-gray-500 hover:text-green-500'
             >
               <svg

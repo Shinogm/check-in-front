@@ -7,10 +7,13 @@ import { NoClientType, getNoMembersTest } from '../API/get-no-members'
 
 export default async function ClientsAllC () {
   revalidatePath('/members/all-memberships')
+
   const getNoMembersData = await getNoMembersTest()
+  revalidatePath('/')
   const getMembersData = await getMembersTest()
   console.log('Members:', getMembersData)
   console.log('No Members:', getNoMembersData)
+  revalidatePath('/members/all-memberships')
 
   return (
     <section className='bg-gradient-to-br from-[#ffa500] to-[#ff6b6b] py-12 md:py-16 lg:py-20'>
