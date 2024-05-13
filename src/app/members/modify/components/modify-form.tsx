@@ -6,8 +6,6 @@ import { toast, Toaster } from 'sonner'
 import { modifyClient } from '../API/modify'
 import { deleteClient } from '../API/delete-client'
 import { motion } from 'framer-motion'
-import { on } from 'events'
-import { revalidatePath } from 'next/cache'
 
 export const querySchema = z.object({
   email: z.string(),
